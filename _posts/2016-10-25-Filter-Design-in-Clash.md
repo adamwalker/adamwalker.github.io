@@ -233,6 +233,17 @@ $ ./linearPhaseTest
 +++ OK, passed 100 tests.
 ```
 
+## Conclusion
+
+I hope that this post has demonstrated the power of Clash. Clash designs are, in my experience, more concise and more generic than the equivalent design in VHDL or Verilog. Higher order functions make the code more readable and less likely to contain faults. 
+
+Testing is also vastly improved with Clash. Since Clash code is just Haskell code, you have the full Haskell testing infrastructure at your disposal, including the famous QuickCheck. 
+
+Though FIR filters are not particularly complex, I am confident that all of these advantages will scale to more complex designs.
+
+Probably the most important attribute, though, for a new HDL to compete with VHDL and Verilog is that it gives the engineer full control over the generated logic. Clash was designed for this, and, as I hope this post has demonstrated, Clash achieves this admirably.
+
 ## Acknowledgements
 
 Thanks to Christiaan Baaij for the high level filter block diagrams.
+
