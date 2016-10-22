@@ -23,15 +23,15 @@ If you have read my [previous blog post](https://adamwalker.github.io/Introducin
 
 [FIR](https://en.wikipedia.org/wiki/Finite_impulse_response) (finite impulse response) filters have a straightforward implementation in hardware so we will use one of those. A FIR filter basically takes successive dot products of the input data with a vector of coefficients. The most obvious way of implementing such a filter is called the direct form and it looks something like this:
 
-![BladeRF]({{ site.baseurl }}/images/wiki-fir.svg)
+![BladeRF]({{ site.baseurl }}/images/FIR_direct.svg)
 
-The circuit keeps copies of the input signal delayed from 1 to N clock cycles, multiplies each delayed copy by a filter coefficient and sums them up. The Clash implementation is straightforward. Taken from the [Clash website](http://www.clash-lang.org/):
+The circuit keeps copies of the input signal delayed from 1 to N clock cycles, multiplies each delayed copy by a filter coefficient and sums them up. The Clash implementation is straightforward. Based on the design on the [Clash website](http://www.clash-lang.org/):
 
 ```haskell
 import CLaSH.Prelude
 
 basicFIR :: (Num a, KnownNat (n + 1), KnownNat n, Default a) => Vec (n + 1) a -> Signal a -> Signal a
-basicFIR coeffs x = dotp (map pure coeffs) (window x)
+basicFIR coeffs x = dotp (pure <$> coeffs) (iterateI (register 0) x)
   where
     dotp as bs = sum (zipWith (*) as bs)
 
@@ -63,7 +63,9 @@ And we get...
 
 (You probably want to right click and view image so you can see it properly).
 
-Examining the logic, it is clear that this is exactly what we wanted. The adders are arranged in a tree on the right. The leftmost side of the adders is fed from the multipliers sitting around the middle of the design. Lastly, at the bottom left is the implementation of the window function. It's all merged into one large register that feeds back into itself, but shifted by 16 (the size of input data).
+Examining the logic, it is clear that this is exactly what we wanted. The adders are arranged in a tree on the right. The leftmost side of the adders is fed from the multipliers sitting around the middle of the design, one for each coefficient. Lastly, the three registers at the bottom left create the delayed versions of the input samples.
+
+### Genericity
 
 Although this is a trivial design, the power of Clash is already clear. We did in four lines of code something that would take many more in Verilog. And, the design is generic in both the type of the data being filtered and the number of filter taps.
 
@@ -83,9 +85,25 @@ topEntity = fir (3 :> 5 :> 7 :> 9 :> 11 :> 13 :> 15 :> Nil)
 
 In each case, when examining the generated schematic we see that Clash generates exactly the logic we want.
 
+### Higher order functions
+
+Perhaps the most powerful feature of Clash, however, is the use of higher order functions (functions that take other functions as arguments) and the clarity and conciseness these bring to the code. In the example above, I used the higher order functions [iterateI](https://hackage.haskell.org/package/clash-prelude-0.10.14/docs/CLaSH-Sized-Vector.html#v:iterateI), [sum](https://hackage.haskell.org/package/base-4.8.2.0/docs/Data-Foldable.html#v:sum) (not really a higher order function, but it uses a higher order function similar to [fold](https://hackage.haskell.org/package/clash-prelude-0.10.14/docs/CLaSH-Sized-Vector.html#v:fold) under the hood), and [zipWith](https://hackage.haskell.org/package/clash-prelude-0.10.14/docs/CLaSH-Sized-Vector.html#v:zipWith). If you click on the docs there are nice little diagrams that show the circuit structure that higher order function will synthesize to. 
+
+For example, the [iterateI](https://hackage.haskell.org/package/clash-prelude-0.10.14/docs/CLaSH-Sized-Vector.html#v:iterateI) function which we use to generate the progressively delayed input samples has the structure:
+
+![BladeRF](https://hackage.haskell.org/package/clash-prelude-0.10.14/docs/doc/iterate.svg)
+
+If we substitute the f with our delay function (using the code "iterateI ([register](https://hackage.haskell.org/package/clash-prelude-0.10.14/docs/CLaSH-Signal.html#v:register) 0)" in the Clash code above) we get exactly the top line of the filter block diagram at the beginning of this section.
+
+Building your circuits using higher order functions in this way makes the structure of the circuit obvious to anyone (familiar with Haskell/Clash) who reads your code. It also prevents mistakes that can arise when implementing these structures manually (for example, using for ... generate loops in VHDL) in much the same way that using higher order functions can prevent mistakes when writing software.
+
 ## A Faster Filter
 
-The direct form has a major shortcoming, however. While the adder tree has depth logarithmic in the number of filter taps, for larger filters, this is still often too deep. Alternatively, we can move the registers to after each summation to break up this large combinational path (skip ahead to the schematic below if this is unclear). The Clash implementation is quite different to the direct form as it no longer makes use of the window function:
+The direct form has a major shortcoming, however. While the adder tree has depth logarithmic in the number of filter taps, for larger filters, this is still often too deep. Alternatively, we can move the registers to after each summation to break up this large combinational path. This is called the transpose of the filter and it looks like this:
+
+![BladeRF]({{ site.baseurl }}/images/FIR_transposed.svg)
+
+It can be implemented in Clash as:
 
 ```haskell
 fastFIR :: (Num a, Default a, KnownNat (n + 1)) => Vec (n + 1) a -> Signal a -> Signal a
@@ -97,24 +115,25 @@ fastFIR coeffs x = foldl func 0 $ map (* x) (pure <$> coeffs)
 In this design, there is no combinational delay longer that a multiplier followed by an adder. However, this may even be too much, or our FPGA architecture may force us to latch immediately after a multiplication if we want to use a DSP block. Since Clash provides us with direct control over the generated logic this is not difficult to overcome:
 
 ```haskell
-fastFIR :: (Num a, Default a, KnownNat (n + 1)) => Vec (n + 1) a -> Signal a -> Signal a
-fastFIR coeffs x = foldl func 0 $ map (register def) $ map (* x) (pure <$> coeffs)
+fastFIR :: (Num a, KnownNat (n + 1)) => Vec (n + 1) a -> Signal a -> Signal a
+fastFIR coeffs x = foldl func 0 $ map (register 0) $ map (* x) (pure <$> coeffs)
     where
     func accum x = register 0 $ accum + x
 ```
+
+Note the additional "map (register 0)".
 
 ...and the generated logic:
 
 ![basicFIR]({{ site.baseurl }}/images/registeredFIR.svg)
 
-It is clear that the longest combinational logic path is now a single multiply.
+It is clear from the diagram that the longest combinational logic path is now a single multiply.
 
 ### Testing 
 
-It should be obvious from the schematic that the design is correct. However, real world designs are more complex that a single FIR filter and some kind of testing is usually needed. We can write a simple [quickcheck](https://hackage.haskell.org/package/QuickCheck) property that tests that for all inputs (the filter coefficients and input samples), the basic FIR filter and the optimised one generate the same outputs.
+It should be obvious from the schematic that the design is correct. However, real world designs are more complex than a single FIR filter and some kind of testing is usually needed. We can write a simple [quickcheck](https://hackage.haskell.org/package/QuickCheck) property that tests that for all inputs (the filter coefficients and input samples), the basic FIR filter and the optimised one generate the same outputs.
 
 ```haskell
-{-# LANGUAGE TypeOperators, DataKinds, FlexibleContexts #-}
 import qualified Prelude
 import Test.QuickCheck
 import CLaSH.Prelude
@@ -130,14 +149,12 @@ propFilter coeffs input =
 main = quickCheck (propFilter :: Vec 8 (Signed 32) -> [Signed 32] -> Bool)
 ```
 
-We run this test with GHC, not the Clash compiler. Because of that, there are some additional language extensions that we must enable for our design to compile that GHC does not enable by default. We must also import Prelude qualified so that the names don't conflict with those in the Clash prelude.
+We need to account for the fact that the fastFIR filter actually applies the coefficients in the opposite order to the basic one (have a look at the schematic to convince yourself), so we reverse the coefficients before running it. Also, the additional registering in the faster version means that the output is delayed by two cycles, so we account for this by dropping the first 2 outputs of the optimised filter.
 
-We also need to account for the fact that the fastFIR filter actually applies the coefficients in the opposite order to the basic one (have a look at the schematic to convince yourself), so we reverse the coefficients before running it. Also, the additional registering in the faster version means that the output is delayed by two cycles, so we account for this by dropping the first 2 outputs of the optimised filter.
-
-Compiling with GHC and running it gives:
+Compiling with Clash and running it gives:
 
 ```
-$ ghc fastfilterTest.hs
+$ clash fastfilterTest.hs
 $ ./fastFilterTest;
 +++ OK, passed 100 tests.
 ```
@@ -164,7 +181,7 @@ Multipliers are a scarce resource on the BladeRF. With only 200 of them, we must
 
 The coefficients are symmetric, so, for example, the first coefficient is the same as the last one. The summation contains the terms (c[1] . x[n]) and (c[N] . x[n-N]) where c is the vector of coefficients, x is the vector of input samples, N is the filter length and n is the current sample index. This can be factored as (x[n] + x[N]) . c[1] (since c[1] == c[N]), saving a multiplication.
 
-The implementation is given below. Again, skip ahead to the schematic if it is unclear.
+The implementation is given below. Skip ahead to the schematic if it is unclear.
 
 ```haskell
 import CLaSH.Prelude
@@ -191,7 +208,6 @@ Note that the longest combinational delay has grown to be an adder, followed by 
 Again, we test it.
 
 ```haskell
-{-# LANGUAGE TypeOperators, DataKinds, FlexibleContexts #-}
 import qualified Prelude
 import Test.QuickCheck
 import CLaSH.Prelude
@@ -212,7 +228,11 @@ We make sure that it is equivalent to the basic filter applied to the concatenat
 And again:
 
 ```
-$ ghc linearPhaseTest.hs
+$ clash linearPhaseTest.hs
 $ ./linearPhaseTest
 +++ OK, passed 100 tests.
 ```
+
+## Acknowledgements
+
+Thanks to Christiaan Baaij for the high level filter block diagrams.
