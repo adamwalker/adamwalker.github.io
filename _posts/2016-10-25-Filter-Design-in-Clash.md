@@ -13,7 +13,7 @@ It will basically be a digital hardware version of my [software AM receiver](htt
 
 ![BladeRF]({{ site.baseurl }}/images/bladerf.png)
 
-The [BladeRF](http://www.nuand.com) is a [software defined radio](https://en.wikipedia.org/wiki/Software-defined_radio) platform designed for hobbyists. Like the [RTLSDR](http://www.rtl-sdr.com/), contains an analogue frontend that filters the incoming signal to select a block of frequencies, mixes the filtered signal down and then digitises it with an analogue to digital converter. The digitised signal is made available to software through the USB connection.
+The [BladeRF](http://www.nuand.com) is a [software defined radio](https://en.wikipedia.org/wiki/Software-defined_radio) platform designed for hobbyists. Like the [RTLSDR](http://www.rtl-sdr.com/), it contains an analogue frontend that filters the incoming signal to select a block of frequencies, mixes the filtered signal down and then digitises it with an analogue to digital converter. The digitised signal is made available to software through the USB connection.
 
 Unlike the RTLSDR, it is capable of much higher sampling rates, a larger frequency range, and, most importantly, it can do all or this in reverse to transmit data as well. However, the feature we will be most interested in for this blog post is the on-board [FPGA](https://en.wikipedia.org/wiki/Field-programmable_gate_array). The signal pass through the FPGA after being digitised and before they are sent to the computer over USB. This allows us to perform high speed signal processing on the FPGA before the samples even make it to software land.
 
@@ -33,7 +33,7 @@ import CLaSH.Prelude
 basicFIR :: (Num a, KnownNat (n + 1), KnownNat n) => Vec (n + 1) a -> Signal a -> Signal a
 basicFIR coeffs x = dotp (pure <$> coeffs) (iterateI (register 0) x)
   where
-    dotp as bs = sum (zipWith (*) as bs)
+    dotp as bs = fold (+) (zipWith (*) as bs)
 
 topEntity :: Signal (Signed 16) -> Signal (Signed 16)
 topEntity = basicFIR (3 :> 5 :> 7 :> 9 :> Nil)
@@ -87,15 +87,15 @@ In each case, when examining the generated schematic we see that Clash generates
 
 ### Higher order functions
 
-Perhaps the most powerful feature of Clash, however, is the use of higher order functions (functions that take other functions as arguments) and the clarity and conciseness these bring to the code. In the example above, I used the higher order functions [iterateI](https://hackage.haskell.org/package/clash-prelude-0.10.14/docs/CLaSH-Sized-Vector.html#v:iterateI), [sum](https://hackage.haskell.org/package/base-4.8.2.0/docs/Data-Foldable.html#v:sum) (not really a higher order function, but it uses a higher order function similar to [fold](https://hackage.haskell.org/package/clash-prelude-0.10.14/docs/CLaSH-Sized-Vector.html#v:fold) under the hood), and [zipWith](https://hackage.haskell.org/package/clash-prelude-0.10.14/docs/CLaSH-Sized-Vector.html#v:zipWith). If you click on the docs there are nice little diagrams that show the circuit structure that these higher order functions will synthesize to. 
+Perhaps the most powerful feature of Clash, however, is the use of higher order functions (functions that take other functions as arguments) and the clarity and conciseness these bring to the code. In the example above, I used the higher order functions [iterateI](https://hackage.haskell.org/package/clash-prelude-0.10.14/docs/CLaSH-Sized-Vector.html#v:iterateI), [fold](https://hackage.haskell.org/package/clash-prelude-0.10.14/docs/CLaSH-Sized-Vector.html#v:fold), and [zipWith](https://hackage.haskell.org/package/clash-prelude-0.10.14/docs/CLaSH-Sized-Vector.html#v:zipWith). If you click on the links there are nice little diagrams that show the circuit structure that these higher order functions will synthesize to. 
 
 For example, the [iterateI](https://hackage.haskell.org/package/clash-prelude-0.10.14/docs/CLaSH-Sized-Vector.html#v:iterateI) function which we use to generate the progressively delayed input samples has the structure:
 
 ![BladeRF](https://hackage.haskell.org/package/clash-prelude-0.10.14/docs/doc/iterate.svg)
 
-If we substitute the f with our delay function (using the code "iterateI ([register](https://hackage.haskell.org/package/clash-prelude-0.10.14/docs/CLaSH-Signal.html#v:register) 0)" in the Clash code above) we get exactly the top line of the filter block diagram at the beginning of this section.
+If we substitute the f with our delay function (in Clash: "iterateI ([register](https://hackage.haskell.org/package/clash-prelude-0.10.14/docs/CLaSH-Signal.html#v:register) 0)" - see above) we get exactly the top line of the filter block diagram at the beginning of this section.
 
-Building your circuits using higher order functions in this way makes the structure of the circuit obvious to anyone (familiar with Haskell/Clash) who reads your code. It also prevents mistakes that can arise when implementing these structures manually (for example, using for ... generate loops in VHDL) in much the same way that using higher order functions can prevent mistakes when writing software.
+Building your circuits using higher order functions in this way makes the structure of the circuit obvious to anyone familiar with Haskell/Clash who reads your code. It also prevents mistakes that can arise when implementing these structures manually (for example, using for ... generate loops in VHDL) in much the same way that using higher order functions can prevent mistakes when writing software.
 
 ## A Faster Filter
 
@@ -239,9 +239,9 @@ I hope that this post has demonstrated the power of Clash. Clash designs are, in
 
 Testing is also vastly improved with Clash. Since Clash code is just Haskell code, you have the full Haskell testing infrastructure at your disposal, including the famous QuickCheck. 
 
-Though FIR filters are not particularly complex, I am confident that all of these advantages will scale to more complex designs.
-
 Probably the most important attribute, though, for a new HDL to compete with VHDL and Verilog is that it gives the engineer full control over the generated logic. Clash was designed for this, and, as I hope this post has demonstrated, Clash achieves this admirably.
+
+Admittedly, FIR filters are not particularly complex. However, I am confident that all of these advantages will scale to more complex designs.
 
 ## Acknowledgements
 
