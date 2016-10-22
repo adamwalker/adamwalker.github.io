@@ -30,7 +30,7 @@ The circuit keeps copies of the input signal delayed from 1 to N clock cycles, m
 ```haskell
 import CLaSH.Prelude
 
-basicFIR :: (Num a, KnownNat (n + 1), KnownNat n, Default a) => Vec (n + 1) a -> Signal a -> Signal a
+basicFIR :: (Num a, KnownNat (n + 1), KnownNat n) => Vec (n + 1) a -> Signal a -> Signal a
 basicFIR coeffs x = dotp (pure <$> coeffs) (iterateI (register 0) x)
   where
     dotp as bs = sum (zipWith (*) as bs)
@@ -106,7 +106,7 @@ The direct form has a major shortcoming, however. While the adder tree has depth
 It can be implemented in Clash as:
 
 ```haskell
-fastFIR :: (Num a, Default a, KnownNat (n + 1)) => Vec (n + 1) a -> Signal a -> Signal a
+fastFIR :: (Num a, KnownNat (n + 1)) => Vec (n + 1) a -> Signal a -> Signal a
 fastFIR coeffs x = foldl func 0 $ map (* x) (pure <$> coeffs)
     where
     func accum x = register 0 $ accum + x
@@ -186,14 +186,14 @@ The implementation is given below. Skip ahead to the schematic if it is unclear.
 ```haskell
 import CLaSH.Prelude
 
-linearPhase :: (KnownNat (n + 1), Num a) => Vec (n + 1) a -> Signal Bool -> Signal a -> Signal a
-linearPhase coeffs en x = foldl func 0 $ zipWith (*) folded (pure <$> coeffs)
+linearPhase :: (KnownNat (n + 1), Num a) => Vec (n + 1) a -> Signal a -> Signal a
+linearPhase coeffs x = foldl func 0 $ zipWith (*) folded (pure <$> coeffs)
     where
-    func accum x = regEn 0 en $ accum + x
+    func accum x = register 0 $ accum + x
     folded       = map (+ x) delayed
-    delayed      = iterate (lengthS coeffs) (regEn 0 en . regEn 0 en) (regEn 0 en x)
+    delayed      = iterate (lengthS coeffs) (register 0 . register 0) (register 0 x)
 
-topEntity :: Signal Bool -> Signal (Signed 16) -> Signal (Signed 16)
+topEntity :: Signal (Signed 16) -> Signal (Signed 16)
 topEntity = linearPhase (3 :> 5 :> 7 :> Nil)
 ```
 
