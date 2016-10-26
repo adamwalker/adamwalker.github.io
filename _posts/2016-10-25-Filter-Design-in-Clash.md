@@ -247,3 +247,6 @@ Admittedly, FIR filters are not particularly complex. However, I am confident th
 
 Thanks to Christiaan Baaij for the high level filter block diagrams.
 
+## Code
+
+The code in this blog post can be found [here](https://github.com/adamwalker/clash-expts).
