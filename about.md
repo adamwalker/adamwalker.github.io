@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-My interests include functional programming, signal processing and digital hardware design.
+My interests include digital hardware design, signal processing and functional programming.
 
 ## Projects
 
