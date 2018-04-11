@@ -11,7 +11,7 @@ My interests include digital hardware design, signal processing and functional p
 ### SDR
 A software defined radio library written mostly in Haskell.
 
-[GitHub](https://github.com/adamwalker/sdr) [Hackage](https://hackage.haskell.org/package/sdr)
+[GitHub](https://github.com/adamwalker/sdr) [Hackage](https://hackage.haskell.org/package/sdr) [Blog](http://adamwalker.github.io/Introducing-SDR/)
 
 ### Clash-utils
 A collection of hardware designs/algorithms written in [Clash](http://www.clash-lang.org/)
