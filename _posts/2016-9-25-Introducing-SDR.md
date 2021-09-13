@@ -15,7 +15,7 @@ You still need some hardware to digitise the signal coming from the antenna. Spe
 
 ![RTLSDR]({{ site.baseurl }}/images/rtl-sdr.jpg)
 
-You might expect such hardware to be niche and/or expensive. However, a few years ago, an undocumented mode was found in a cheap TV tuner chip that does exactly what we need. These chips are abundant and can be [bought](http://www.nooelec.com/store/sdr.html) for only US $20. There is [loads of cool stuff](http://www.rtlsdr.com/) you can do with one and its also worth checking out the [reddit](https://www.reddit.com/r/RTLSDR/).
+You might expect such hardware to be niche and/or expensive. However, a few years ago, an undocumented mode was found in a cheap TV tuner chip that does exactly what we need. These chips are abundant and can be [bought](http://www.nooelec.com/store/sdr.html) for only US $20. There is [loads of cool stuff](http://www.rtl-sdr.com/) you can do with one and its also worth checking out the [reddit](https://www.reddit.com/r/RTLSDR/).
 
 ## Peering into the Broadcast Band
 
