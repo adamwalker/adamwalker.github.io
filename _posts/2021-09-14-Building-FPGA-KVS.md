@@ -179,7 +179,7 @@ The excellent [SymbiYosys](https://github.com/YosysHQ/SymbiYosys) [verification 
 
 Using a neat trick for verifying memories described in detail on [Dan Gisselquist's blog](https://zipcpu.com/zipcpu/2018/07/13/memories.html), I arbitrarily select a single key to monitor and generate arbitrary modification operations. Since the key was arbitrarily chosen in the first place, the property applies to all keys! The properties and scripts can all be found [here](https://github.com/adamwalker/clash-utils/tree/master/formal/cuckooPipeline).
 
-Note that this isn't a full proof of correctness. It states that for ~20 cycles (or however long the bounded model check runs before I get tired), for all possible behaviours of the environment, the design does the right thing. This is still quite a strong statement but it says nothing about what happens after those 20 cycles. To fully verify the design, a technique like [k-induction](https://zipcpu.com/blog/2018/03/10/induction-exercise.html) is needed. I've played around with k-induction on some toy designs but it looks like it would be quite a lot or work to get it going here.
+Note that this isn't a full proof of correctness. It states that for ~20 cycles (or however long the bounded model check runs before I get tired), for all possible behaviours of the environment, the design does the right thing. This is still quite a strong statement but it says nothing about what happens after those 20 cycles. To fully verify the design, a technique like [k-induction](https://zipcpu.com/blog/2018/03/10/induction-exercise.html) is needed. I've played around with k-induction on some toy designs but it looks like it would be quite a lot of work to get it going here.
 
 ### Real world tests
 
