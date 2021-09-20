@@ -74,19 +74,32 @@ You can also build a cache in this way. If inserts take too long, just drop the 
 To give you a concrete idea of the hashtable's functionality, here is it's top level definition:
 
 ```haskell
-{-| Convenience wrapper for cuckooPipeline that checks whether keys are present before inserting them. If found, it does a modification instead.
-  | Only allows one insertion at a time so it is less efficient for inserts than `cuckooPipeline`
+{- | Convenience wrapper for cuckooPipeline that checks whether keys are present before inserting them.
+     If found, it does a modification instead.
+     Only allows one insertion at a time so it is less efficient for inserts than `cuckooPipeline`
 -}
-cuckooPipelineInsert
-    :: forall dom m n numRamPipes k v. (HiddenClockResetEnable dom, KnownNat n, Eq k, KnownNat m, NFDataX k, NFDataX v)
-    => SNat numRamPipes              -- ^ Number of ram read pipeline stages
-    -> Vec (m + 1) (k -> Unsigned n) -- ^ Hash functions for each stage
-    -> Signal dom k                  -- ^ Key to lookup, modify or insert
-    -> Signal dom (Maybe (Maybe v))  -- ^ Modification. Nothing == no modification. Just Nothing == delete. Just (Just X) == insert or overwrite existing value at key
-    -> (
-        Signal dom (Maybe v), -- Lookup result
-        Signal dom Bool       -- Combined busy signal
-        )                            -- ^ (Lookup result, Combined busy signal)
+cuckooPipelineInsert ::
+    forall dom m n numRamPipes k v.
+    HiddenClockResetEnable dom =>
+    KnownNat n =>
+    KnownNat m =>
+    (Eq k, NFDataX k) =>
+    NFDataX v =>
+    -- | Number of ram read pipeline stages
+    SNat numRamPipes ->
+    -- | Hash functions for each stage
+    Vec (m + 1) (k -> Unsigned n) ->
+    -- | Key to lookup, modify or insert
+    Signal dom k ->
+    -- | Modification command.
+    --   Nothing == no modification.
+    --   Just Nothing == delete.
+    --   Just (Just X) == insert or overwrite existing value at key
+    Signal dom (Maybe (Maybe v)) ->
+    -- | (Lookup result, Combined busy signal)
+    ( Signal dom (Maybe v)
+    , Signal dom Bool
+    )
 ```
 
 Notice the genericity of this function and how easily this can be expressed in Clash:
