@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="295.51898mm"
+   height="28.269302mm"
+   viewBox="0 0 295.51898 28.269303"
+   version="1.1"
+   id="svg90791"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   sodipodi:docname="fpga-radio.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview90793"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.1893044"
+     inkscape:cx="530.98265"
+     inkscape:cy="102.58097"
+     inkscape:window-width="2252"
+     inkscape:window-height="1438"
+     inkscape:window-x="0"
+     inkscape:window-y="64"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs90788">
+    <marker
+       style="overflow:visible"
+       id="TriangleStart"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="TriangleStart"
+       markerWidth="5.3244081"
+       markerHeight="6.155385"
+       viewBox="0 0 5.3244081 6.1553851"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="TriangleStart-4"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="TriangleStart"
+       markerWidth="5.3244081"
+       markerHeight="6.155385"
+       viewBox="0 0 5.3244081 6.1553851"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-7" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="TriangleStart-43"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="TriangleStart"
+       markerWidth="5.3244081"
+       markerHeight="6.155385"
+       viewBox="0 0 5.3244081 6.1553851"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-0" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="TriangleStart-8"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="TriangleStart"
+       markerWidth="5.3244081"
+       markerHeight="6.155385"
+       viewBox="0 0 5.3244081 6.1553851"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-6" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="TriangleStart-84"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="TriangleStart"
+       markerWidth="5.3244081"
+       markerHeight="6.155385"
+       viewBox="0 0 5.3244081 6.1553851"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-3" />
+    </marker>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-0.22397291,-119.98006)">
+    <rect
+       style="fill:none;stroke:#010101;stroke-width:0.788819;stroke-dasharray:none"
+       id="rect90912"
+       width="48.555874"
+       height="27.390228"
+       x="19.534212"
+       y="120.37447" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.23333px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro, Normal';text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:#010101;stroke-width:0.094;stroke-dasharray:none"
+       x="26.730501"
+       y="124.96134"
+       id="text92731"><tspan
+         sodipodi:role="line"
+         style="font-size:4.23333px;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;stroke-width:0.094;stroke-dasharray:none"
+         x="26.730501"
+         y="124.96134"
+         id="tspan100916">Decimation</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:4.23333px;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;stroke-width:0.094;stroke-dasharray:none"
+         x="26.730501"
+         y="130.25301"
+         id="tspan100920">- 3-stage</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:4.23333px;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;stroke-width:0.094;stroke-dasharray:none"
+         x="26.730501"
+         y="135.54466"
+         id="tspan94923">- Semi-parallel</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:4.23333px;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;stroke-width:0.094;stroke-dasharray:none"
+         x="26.730501"
+         y="140.83633"
+         id="tspan94917">- Symmetric</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:4.23333px;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;stroke-width:0.094;stroke-dasharray:none"
+         x="26.730501"
+         y="146.12799"
+         id="tspan94921">- Half band</tspan></text>
+    <rect
+       style="fill:none;stroke:#010101;stroke-width:0.788968;stroke-dasharray:none"
+       id="rect90912-2"
+       width="48.555721"
+       height="27.400682"
+       x="87.171761"
+       y="120.4542" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.23333px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro, Normal';text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:#010101;stroke-width:0.094;stroke-dasharray:none"
+       x="94.367973"
+       y="125.04095"
+       id="text92731-0"><tspan
+         sodipodi:role="line"
+         id="tspan92729-6"
+         style="font-size:4.23333px;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;stroke-width:0.094;stroke-dasharray:none"
+         x="94.367973"
+         y="125.04095">Demodulation</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:4.23333px;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;stroke-width:0.094;stroke-dasharray:none"
+         x="94.367973"
+         y="130.33261"
+         id="tspan94921-4">- Cordic</tspan></text>
+    <rect
+       style="fill:none;stroke:#010101;stroke-width:0.787171;stroke-dasharray:none"
+       id="rect90912-2-7"
+       width="48.557518"
+       height="27.274963"
+       x="154.34833"
+       y="120.49715" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.23333px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro, Normal';text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:#010101;stroke-width:0.094;stroke-dasharray:none"
+       x="161.54544"
+       y="125.08481"
+       id="text92731-0-6"><tspan
+         sodipodi:role="line"
+         id="tspan92729-6-5"
+         style="font-size:4.23333px;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;stroke-width:0.094;stroke-dasharray:none"
+         x="161.54544"
+         y="125.08481">Decimation</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:4.23333px;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;stroke-width:0.094;stroke-dasharray:none"
+         x="161.54544"
+         y="130.37646"
+         id="tspan94921-4-6">- 2-stage</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:4.23333px;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;stroke-width:0.094;stroke-dasharray:none"
+         x="161.54544"
+         y="135.66814"
+         id="tspan100906">- Semi-parallel</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:4.23333px;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;stroke-width:0.094;stroke-dasharray:none"
+         x="161.54544"
+         y="140.95979"
+         id="tspan100914">- Symmetric</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:4.23333px;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;stroke-width:0.094;stroke-dasharray:none"
+         x="161.54544"
+         y="146.25146"
+         id="tspan131581">- Half band</tspan></text>
+    <rect
+       style="fill:none;stroke:#010101;stroke-width:0.787013;stroke-dasharray:none"
+       id="rect90912-2-7-9"
+       width="48.557678"
+       height="27.263933"
+       x="221.4736"
+       y="120.49818" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.23333px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro, Normal';text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:#010101;stroke-width:0.094;stroke-dasharray:none"
+       x="228.67079"
+       y="125.08595"
+       id="text92731-0-6-3"><tspan
+         sodipodi:role="line"
+         id="tspan92729-6-5-7"
+         style="font-size:4.23333px;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;stroke-width:0.094;stroke-dasharray:none"
+         x="228.67079"
+         y="125.08595">Filter</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:4.23333px;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;stroke-width:0.094;stroke-dasharray:none"
+         x="228.67079"
+         y="130.37761"
+         id="tspan94921-4-6-4">- 1-stage</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:4.23333px;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;stroke-width:0.094;stroke-dasharray:none"
+         x="228.67079"
+         y="135.66928"
+         id="tspan100906-5">- Semi-parallel</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:4.23333px;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;stroke-width:0.094;stroke-dasharray:none"
+         x="228.67079"
+         y="140.96094"
+         id="tspan100914-5">- Symmetric</tspan></text>
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#010101;stroke-width:0.737585;stroke-dasharray:none;marker-end:url(#TriangleStart)"
+       d="m 68.451609,134.13662 c 16.144353,0 16.144353,0 16.144353,0"
+       id="path109904" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#010101;stroke-width:0.834499;stroke-dasharray:none;marker-end:url(#TriangleStart-8)"
+       d="m 270.73146,133.60468 c 20.66558,0 20.66558,0 20.66558,0"
+       id="path109904-8" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#010101;stroke-width:0.737585;stroke-dasharray:none;marker-end:url(#TriangleStart-84)"
+       d="m 0.22397291,134.72347 c 16.14435009,0 16.14435009,0 16.14435009,0"
+       id="path109904-1" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#010101;stroke-width:0.737585;stroke-dasharray:none;marker-end:url(#TriangleStart-4)"
+       d="m 135.62648,133.60417 c 16.14436,0 16.14436,0 16.14436,0"
+       id="path109904-4" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#010101;stroke-width:0.737585;stroke-dasharray:none;marker-end:url(#TriangleStart-43)"
+       d="m 202.60832,133.45113 c 16.14435,0 16.14435,0 16.14435,0"
+       id="path109904-7" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.23333px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro, Normal';text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;stroke:#010101;stroke-width:0;stroke-dasharray:none"
+       x="2.3456573"
+       y="131.38817"
+       id="text125762"><tspan
+         sodipodi:role="line"
+         id="tspan125760"
+         style="font-size:4.23333px;stroke-width:0;stroke-dasharray:none"
+         x="2.3456573"
+         y="131.38817">RF in</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:4.23333px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro, Normal';text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;stroke:#010101;stroke-width:0;stroke-dasharray:none"
+       x="273.11157"
+       y="130.48738"
+       id="text125762-4"><tspan
+         sodipodi:role="line"
+         id="tspan125760-9"
+         style="font-size:4.23333px;stroke-width:0;stroke-dasharray:none"
+         x="273.11157"
+         y="130.48738">Audio out</tspan></text>
+  </g>
+</svg>
