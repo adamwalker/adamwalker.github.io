@@ -213,3 +213,4 @@ Since I have used the slow 25MHz Ethernet clock, the design meets timing by a la
 
 The latency of the actual hashtable in logic, from the key being valid to the data being ready is two cycles. This would have to be increased for larger hashtables on larger FPGAs. The actual wire to wire latency at the Ethernet level is much higher due the serialization delay at 100M. I'll have to synthesize this for a 10G+ capable board one day and see how fast I can get it.
 
+*This post was discussed on Hacker News [here](https://news.ycombinator.com/item?id=36387477)*
