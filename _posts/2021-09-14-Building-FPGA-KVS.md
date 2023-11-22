@@ -11,7 +11,7 @@ The source code for the top level project is available [here](https://github.com
 
 ## Background
 
-A [key-value-store (KVS)](https://en.wikipedia.org/wiki/Key-value_database), aka hashtable, is a database used for storing and retrieving data associated with a key. They are frequently used to cache data. Sometimes they run on the same machine as the client application. Sometimes they are accessed over the network. Software examples include [Memcached](https://en.wikipedia.org/wiki/Memcached) and [Redis](https://en.wikipedia.org/wiki/Redis). 
+A [key-value-store (KVS)](https://en.wikipedia.org/wiki/Key-value_database), often implemented using a hashtable, is a database used for storing and retrieving data associated with a key. They are frequently used to cache data. Sometimes they run on the same machine as the client application. Sometimes they are accessed over the network. Software examples include [Memcached](https://en.wikipedia.org/wiki/Memcached) and [Redis](https://en.wikipedia.org/wiki/Redis). 
 
 If latency is important for your networked key-value-store, then it could run on an FPGA, or even an ASIC. Even with the [fastest NICs available](https://exablaze.com/exanic-x25) a round trip from the network to your CPU and back to the network takes ~700 nanoseconds. With FPGAs and 10G+ Ethernet we can cut out most of this latency and wire-to-wire response times <100ns are possible, but I don't know if this kind of latency reduction is actually useful in practice. A major downside of using an FPGA, however, is much reduced storage capacity compared to a software implementation, especially if you are sticking with on-chip SRAM, as I am doing.
 
