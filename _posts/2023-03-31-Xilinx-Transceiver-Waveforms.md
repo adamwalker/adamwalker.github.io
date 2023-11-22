@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Generating Analog Waveforms using Xilinx Transceivers
+title: Inspecting Ethernet Waveforms using FPGA Transceivers
 ---
 
 In this post, I walk through the design of a sampling oscilloscope built using only the transceiver eye scan functionality of a Xilinx FPGA. A sampling oscilloscope lets you see the full analog waveform coming into the transceiver. I think it is neat that, with a few tricks, you can do this with only a Xilinx GTY, which, functionally, only provides a single 1 or 0 per bit period. It's also nice to see what these high speed serial waveforms are actually doing in the time domain at the receiver.
