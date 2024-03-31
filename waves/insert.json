@@ -1,0 +1,25 @@
+{ signal: [
+
+  { name: 'clk', wave: 'P......' },
+
+  {},
+
+  ['Insert',
+    { name: 'busy',      wave: '1.0x...' },
+    { name: 'insert',    wave: '1..0...' },
+    { name: 'ins_key',   wave: 'x.=x...', data: 'K'},
+    { name: 'ins_value', wave: 'x.=x...', data: 'V'},
+  ],
+
+  {},
+
+  ['Lookup',
+    { name: 'lookup', wave: '0..10..'},
+    { name: 'key',    wave: 'x..=x..', data: 'K'},
+    { name: 'valid',  wave: '0....10'},
+    { name: 'value',  wave: 'x....=x', data: 'V'},
+  ]
+],
+  head: {tock: 0},
+}
+

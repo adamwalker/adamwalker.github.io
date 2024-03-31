@@ -1,0 +1,21 @@
+{ signal: [
+
+  { name: 'clk', wave: 'P......' },
+
+  {},
+
+  ['Lookup/modify',
+    { name: 'lookup',    wave: '01.0...' },
+
+    { name: 'key',       wave: 'x=.x...', data: 'K' },
+    { name: 'valid',     wave: '0..1.0.'},
+    { name: 'value',     wave: 'x..==x.', data: ['V', 'V+1']},
+    { name: 'modify',    wave: '0..10..'},
+    { name: 'delete',    wave: '0......'},
+    { name: 'mod_value', wave: 'x..=x..', data: 'V+1'},
+  ],
+
+],
+  head: {tock: 0},
+}
+
