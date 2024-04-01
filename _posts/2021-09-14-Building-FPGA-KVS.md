@@ -215,5 +215,5 @@ The latency of the actual hashtable in logic, from the key being valid to the da
 
 *This post was discussed on Hacker News [here](https://news.ycombinator.com/item?id=36387477)*.
 
-*An improved version of the hashtable in this post is described [here](http://adamwalker.github.io/Building-Better-Hashtable/)*.
+*An improved version of the hashtable in this post is described [here](https://adamwalker.github.io/Building-Better-Hashtable/)*.
 

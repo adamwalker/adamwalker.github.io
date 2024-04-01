@@ -3,7 +3,7 @@ layout: post
 title: Building a Better Hashtable on an FPGA
 ---
 
-In this post, I walk through an improved FPGA hashtable design, following on from my [earlier post](http://adamwalker.github.io/Building-FPGA-KVS/). Unlike that post, I'll mostly focus on the hashtable design, rather than using it to build an actual networked key-value-store.
+In this post, I walk through an improved FPGA hashtable design, following on from my [earlier post](https://adamwalker.github.io/Building-FPGA-KVS/). Unlike that post, I'll mostly focus on the hashtable design, rather than using it to build an actual networked key-value-store.
 
 I also explain my formal verification based development methodology, which allowed me to gain a lot of confidence in the design before even writing a single test.
 
@@ -11,7 +11,7 @@ The SystemVerilog code for the hashtable implementation is available [here](http
 
 ## Background
 
-Hashtables are useful data structures, whether you're designing software or hardware. In my [earlier post](http://adamwalker.github.io/Building-FPGA-KVS/), I walked through the design of a basic one based on [Cuckoo hashing](https://en.wikipedia.org/wiki/Cuckoo_hashing). As that post describes, looking up keys is very simple with Cuckoo hashing - just check each table for the key of interest. The main innovation of that post was the idea of a "cuckoo loop", for handling the more difficult insert operation.
+Hashtables are useful data structures, whether you're designing software or hardware. In my [earlier post](https://adamwalker.github.io/Building-FPGA-KVS/), I walked through the design of a basic one based on [Cuckoo hashing](https://en.wikipedia.org/wiki/Cuckoo_hashing). As that post describes, looking up keys is very simple with Cuckoo hashing - just check each table for the key of interest. The main innovation of that post was the idea of a "cuckoo loop", for handling the more difficult insert operation.
 
 However, the design suffers from a couple of major limitations that limit its practical utility:
 
@@ -60,7 +60,7 @@ The waveform illustrates a slightly unintuitive feature of the design. Conceptua
 
 ## Design
 
-At a high level, the design is based on the "cuckoo loop" idea explained in more detail in my [earlier post](http://adamwalker.github.io/Building-FPGA-KVS/), and shown in the diagram below.
+At a high level, the design is based on the "cuckoo loop" idea explained in more detail in my [earlier post](https://adamwalker.github.io/Building-FPGA-KVS/), and shown in the diagram below.
 
 <br />
 ![Hashtable architecture]({{ site.baseurl }}/images/hashtable_top.svg)
@@ -170,7 +170,7 @@ The actual heavily commented spec is [here](https://github.com/adamwalker/fpga-h
 
 In addition to performing bounded model checking, I have implemented a traditional randomised testsuite. While the bounded model check gives me a lot of confidence in the design, it only shows correctness for a bounded number of cycles. Also, while the spec is short and simple, it's still human written code and might contain mistakes. 
 
-The testsuite, which uses the wonderful [verilator](https://www.veripool.org/verilator/) as the simulator, is basically the same as described in the testing section of my original [blog post](http://adamwalker.github.io/Building-FPGA-KVS/), except that it's written in Rust, not Haskell.
+The testsuite, which uses the wonderful [verilator](https://www.veripool.org/verilator/) as the simulator, is basically the same as described in the testing section of my original [blog post](https://adamwalker.github.io/Building-FPGA-KVS/), except that it's written in Rust, not Haskell.
 
 It randomly generates a sequence of hashtable operations and feeds them to the simulated hashtable and a software mirror hashtable, and checks that all lookup operations performed by the design return presence and value information that matches the mirror.
 
